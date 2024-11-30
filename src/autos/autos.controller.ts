@@ -1,13 +1,17 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { AutosDatosEntrada } from './dto/autos.datosentrada.dto';
+import { AutosService } from './autos.service';
 
 @Controller('autos')
 export class AutosController {
-    constructor() {}
+    constructor(private readonly serviceAutos: AutosService) {}
 
     @Post('crear')
     Registrar(@Body() datosEntrada: AutosDatosEntrada) {
-        return datosEntrada;
+       const respuesta = this.serviceAutos.registrarAuto(datosEntrada);
+       console.log(respuesta);
+       
+       return respuesta;
     }
 
     @Get('listar')
